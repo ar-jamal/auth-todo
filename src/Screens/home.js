@@ -8,8 +8,8 @@ function Home() {
   // const si
 
   const db = getDatabase(app);
-  // const location = useLocation();
-  const params = useParams();
+  const location = useLocation();
+  // const params = useParams();
   let [txt, setTxt] = useState("")
   // let [value, setValue] = useState("")
   // let [titleBut, setTitleBut] = useState('add')
@@ -90,14 +90,14 @@ function Home() {
     setSelected(null)
     setTxt('')
   }
-  console.log(params)
+  console.log(location.userName)
   const isUpdate = !!selected
   // console.log(list)
   return (
     <div className="App">
       <header className="App-header">
         <div style={{ width: '280' }} >
-          <h3 style={{ color: "white", backgroundColor: "yellow" }} >{params.userName}</h3>
+          <h3 style={{ color: "white", backgroundColor: "yellow" }} >{location.userName}</h3>
           <div style={{ flexDirection: 'row', width: '100%' }} >
             <input
               // style={{ width: '100%' }}

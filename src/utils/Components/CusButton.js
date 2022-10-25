@@ -1,8 +1,6 @@
 import React from 'react'
 
-function Button({style={},...props}) {
-    console.log(props)
-    // return <button className="btn">{props.btnValue}</button>
+function ButtonCus({style={},...props}) {
     return (<button
         style={{ margin: 12  , color: 'blue', ...style}}
         className={`btn ${props.otherClasses}`}
@@ -10,4 +8,4 @@ function Button({style={},...props}) {
     )
 
 }
-export default Button;
+export default ButtonCus;

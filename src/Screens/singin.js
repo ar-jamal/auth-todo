@@ -1,30 +1,38 @@
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signinUser } from "../config/firebaseMethods";
+import SigninBut from "../utils/Components/MuiLibrary/AlertDialog";
 
 export default function Signin() {
     const navigate = useNavigate();
+    const [open, setOpen] = useState(false);
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     let signinAuth = () => {
         signinUser({ email, password })
             .then((success) => {
                 if (!!success) {
-                    // console.log(success)
-                    navigate("/", {state: success.userName})
+                    console.log(success)
+                    navigate("/", { state: success.userName })
                 }
             })
             .catch((error) => {
-                var singinErr= error
+                if (!!error) {
+                    setOpen(true)
+                }
             });
     }
     return (
         <>
             <div>
-
                 <h1>Sign in</h1>
                 <Box style={{ flexDirection: "column" }} >
                     <TextField
@@ -42,11 +50,14 @@ export default function Signin() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </Box>
-                <button style={{ margin: 28 }} onClick={signinAuth}> Sign in </button>
+                {/* <Button style={{ margin: 28 }} onClick={signinAuth}> Sign in </Button> */}
+                <SigninBut onClick={signinAuth} open={open} onClose={handleClose} />
                 <Box style={{ flex: 1, flexDirection: "row" }}>
                     <h4 style={{ margin: 6 }}>Registered not yet?</h4>
-                    <button onClick={() => navigate("/signup")}>Sign up</button>
+                    <Button variant="outlined" onClick={() => navigate("/signup")}>Sign up</Button>
                 </Box>
+                {/* { singinErr && <h3>{singinErr}</h3>} */}
+
             </div>
         </>
     )

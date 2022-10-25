@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -50,10 +50,10 @@ export default function Signup() {
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </Box>
-            <button style={{ margin: 28 }} onClick={signupAuth}>Sign up</button>
+            <Button variant="outlined" style={{ margin: 28 }} onClick={signupAuth}>Sign up</Button>
             <Box style={{ flex: 1, flexDirection: "row" }}>
                 <h4 style={{ margin: 6 }}>Already have an account?</h4>
-                <button onClick={() => navigate("/")}>Sign in</button>
+                <Button variant="outlined" onClick={() => navigate("/")}>Sign in</Button>
             </Box>
         </>
     )
