@@ -90,7 +90,7 @@ function Home() {
     setSelected(null)
     setTxt('')
   }
-  console.log(location)
+  // console.log(location)
   const isUpdate = !!selected
   // console.log(list)
   return (
@@ -162,6 +162,11 @@ function Home() {
     </div>
   );
 }
+
+// .btn {
+//   backgroundColor
+
+// }
 
 export default Home;
 

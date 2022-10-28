@@ -6,21 +6,24 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signinUser } from "../config/firebaseMethods";
 import SigninBut from "../utils/Components/MuiLibrary/AlertDialog";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Signin() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
     const handleClose = () => {
         setOpen(false);
     };
 
     let signinAuth = () => {
+        setIsLoading(true)
         signinUser({ email, password })
             .then((success) => {
                 if (!!success) {
-                    console.log(success)
+                    // console.log(success)
                     navigate("/", { state: success.userName })
                 }
             })
@@ -29,6 +32,7 @@ export default function Signin() {
                     setOpen(true)
                 }
             });
+        setIsLoading(false)
     }
     return (
         <>
@@ -51,7 +55,13 @@ export default function Signin() {
                     />
                 </Box>
                 {/* <Button style={{ margin: 28 }} onClick={signinAuth}> Sign in </Button> */}
-                <SigninBut onClick={signinAuth} open={open} onClose={handleClose} />
+                <SigninBut
+                    disabled={isLoading}
+                    title={!!isLoading ? <CircularProgress /> : 'sign in'}
+                    onClick={signinAuth}
+                    open={open}
+                    onClose={handleClose}
+                />
                 <Box style={{ flex: 1, flexDirection: "row" }}>
                     <h4 style={{ margin: 6 }}>Registered not yet?</h4>
                     <Button variant="outlined" onClick={() => navigate("/signup")}>Sign up</Button>

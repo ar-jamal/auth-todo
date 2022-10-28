@@ -14,8 +14,12 @@ export default function SigninBut(props) {
 
     return (
         <div style={{ margin: 18 }} >
-            <Button variant="outlined" onClick={props.onClick}>
-                sign in
+            <Button 
+            variant="outlined" 
+            onClick={props.onClick}
+            disabled= {props.disabled}
+            >
+                {props.title}
             </Button>
             <Dialog
                 open={props.open}

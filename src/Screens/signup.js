@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signupUser } from "../config/firebaseMethods";
+import CircularProgress from "@mui/material/CircularProgress";
 
 
 export default function Signup() {
@@ -10,18 +11,21 @@ export default function Signup() {
     const [email, setEmail] = useState("")
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
     let signupAuth = () => {
+        setIsLoading(true)
         signupUser({ email, password, userName })
             .then((success) => {
-                // console.log(success)
-                if (success) {
-                    navigate("/", {state: userName})
+                console.log('success', success)
+                // if (success) {
+                navigate(`/${success.}`, { state: userName })
 
-                }
+                // }
             })
             .catch((error) => {
-                console.log(error)
+                console.log('error', error)
             });
+        setIsLoading(false)
     }
     return (
         <>
@@ -50,10 +54,15 @@ export default function Signup() {
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </Box>
-            <Button variant="outlined" style={{ margin: 28 }} onClick={signupAuth}>Sign up</Button>
+            <Button variant="outlined" style={{ margin: 28 }} onClick={signupAuth}>{!!isLoading ? <CircularProgress /> : "Sign up"}</Button>
             <Box style={{ flex: 1, flexDirection: "row" }}>
                 <h4 style={{ margin: 6 }}>Already have an account?</h4>
-                <Button variant="outlined" onClick={() => navigate("/")}>Sign in</Button>
+                <Button
+                    disabled={isLoading}
+                    variant="outlined"
+                    onClick={() => navigate("/")}
+                >{!!isLoading ? <CircularProgress /> : "Sign in"}
+                </Button>
             </Box>
         </>
     )
